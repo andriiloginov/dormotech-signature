@@ -296,16 +296,11 @@ function build(forFile, dark){
   }
 
   var lockup = '<a href="https://dormotech.com" style="text-decoration:none;border:0;">'+
-    '<img src="'+esc(LOGO_URL)+'" width="201" height="40" alt="Dormotech" style="display:block;width:201px;height:40px;max-width:201px;border:0;outline:none;text-decoration:none;">'+
-    '</a>'+
-    /* tagline starts under the "D" of the wordmark: 48px in at 201px logo width (table cells survive Outlook) */
-    '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>'+
-    '<td width="48" style="width:48px;min-width:48px;padding:10px 0 0 0;font-size:0;line-height:0;">&nbsp;</td>'+
-    '<td style="padding:10px 0 0 0;'+base+'font-size:12px;line-height:16px;color:'+T.muted+';">Every sleep study,<br>one platform.</td>'+
-    '</tr></table>';
+    '<img src="'+esc(LOGO_URL)+'" width="202" height="57" alt="Dormotech — Every sleep study, one platform." style="display:block;width:202px;height:57px;max-width:202px;border:0;outline:none;text-decoration:none;">'+
+    '</a>';
 
   return '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>'+
-    '<td valign="middle" width="201" style="width:201px;padding:0 28px 0 0;">'+lockup+'</td>'+
+    '<td valign="middle" width="202" style="width:202px;padding:0 28px 0 0;">'+lockup+'</td>'+
     '<td width="1" bgcolor="'+T.div+'" style="width:1px;background-color:'+T.div+';font-size:0;line-height:0;">&nbsp;</td>'+
     '<td valign="top" style="padding:2px 0 2px 20px;">'+text+'</td>'+
     '</tr></table>';
