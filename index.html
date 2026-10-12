@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Dormotech Signatures</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 44 44%22%3E%3Cstyle%3Ecircle%7Bstroke:%23103736%7D.b%7Bfill:%23fff%7D%40media %28prefers-color-scheme:dark%29%7Bcircle%7Bstroke:%23e8f3ef%7D.b%7Bfill:%23121414%7D%7D%3C/style%3E%3Ccircle cx=%2222%22 cy=%2222%22 r=%2220.5%22 fill=%22none%22 stroke-width=%223%22/%3E%3Ccircle cx=%2222%22 cy=%2222%22 r=%2212%22 fill=%22none%22 stroke-width=%224.5%22/%3E%3Ccircle class=%22b%22 cx=%2211.8%22 cy=%225.6%22 r=%223.6%22 stroke-width=%222.6%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: form column on the left, a mock email "paper" with the live signature on the right; stacks on phones */
+:root{
+  --bg:#ffffff; --surface:#f5f6f6; --field:#ffffff; --ink:#103736; --muted:#6b7776; --line:#e4e7e6; --soft:#ecefee;
+  --lime:#afea00; --teal:#009370; --focus:#009370;
+  --font:"Instrument Sans",Arial,Helvetica,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121414; --surface:#1b1e1e; --field:#121414; --ink:#eef2f1; --muted:#98a3a1; --line:#2b302f; --soft:#252a29;
+    --lime:#afea00; --teal:#35c29d; --focus:#afea00; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121414; --surface:#1b1e1e; --field:#121414; --ink:#eef2f1; --muted:#98a3a1; --line:#2b302f; --soft:#252a29;
+  --lime:#afea00; --teal:#35c29d; --focus:#afea00; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.45;padding-inline:16px;padding-block:32px 56px}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:1140px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+
+header.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.mark{width:32px;height:32px;flex:none}
+header.top h1{font-size:20px;line-height:1.2;margin:0;font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+header.top p{margin:2px 0 0;color:var(--muted)}
+.chip{display:none}
+
+.grid{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:minmax(0,1fr)}}
+
+.panel{background:var(--surface);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:24px;min-width:0}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;min-width:0}
+legend{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:0;margin-bottom:12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:420px){.two{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label{font-size:12px;font-weight:500;color:var(--muted)}
+.field label small{font-weight:400;color:var(--muted)}
+input[type=text],input[type=email],input[type=tel],input[type=url]{width:100%;border:1px solid transparent;background:var(--field);border-radius:8px;padding:9px 11px;outline:none;transition:border-color .15s}
+input[type=text]:hover,input[type=email]:hover,input[type=tel]:hover,input[type=url]:hover{border-color:var(--line)}
+input:focus-visible,button:focus-visible,textarea:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+input::placeholder{color:var(--muted);opacity:.7}
+.opt{display:flex;flex-direction:column;gap:6px}
+.opt > span{font-size:12px;font-weight:500;color:var(--muted)}
+.seg{display:flex;flex-wrap:wrap;gap:2px;padding:2px;border-radius:9px;background:var(--soft)}
+.seg button{flex:1 1 auto;border:0;border-radius:7px;background:none;padding:6px 8px;cursor:pointer;font-size:13px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--field);color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(16,55,54,.08)}
+.sw{width:12px;height:12px;border-radius:50%;border:1px solid rgba(16,55,54,.35);flex:none}
+.check{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px}
+.check input{accent-color:var(--teal);width:15px;height:15px;margin:0}
+.checks{display:flex;gap:16px;flex-wrap:wrap}
+.row-btns{display:flex;gap:8px;flex-wrap:wrap}
+.ghost{border:0;background:var(--soft);border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px}
+.ghost:hover{background:var(--line)}
+
+.right{display:flex;flex-direction:column;gap:20px;min-width:0;position:sticky;top:calc(16px + env(safe-area-inset-top,0px))}
+@media (max-width:880px){.right{position:static}}
+.paper-wrap{background:var(--surface);border-radius:14px;padding:8px 8px 8px;display:flex;flex-direction:column}
+.paper-bar{display:flex;align-items:center;gap:10px;padding:6px 10px 10px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.paper-bar b{color:var(--ink);font-weight:600}
+.paper-bar .grow{flex:1}
+/* the email surface is deliberately always white: that is where the signature will live */
+.paper{background:#ffffff;color:#1e1b19;padding:28px 24px 32px;border-radius:10px;overflow-x:auto;font-family:Arial,Helvetica,sans-serif;font-size:14px;box-shadow:0 1px 2px rgba(16,24,24,.06)}
+.paper.dark{background:#1f1f1f;color:#e6e6e6}
+#sig,#sig *{box-sizing:content-box}
+.paper .dnote{margin:20px 0 0;font-size:12px;opacity:.6;font-family:var(--font)}
+.paper .greet{margin:0 0 18px;line-height:1.5}
+
+.actions{background:var(--surface);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:16px}
+.actions h2{font-size:15px;margin:0;font-weight:600;letter-spacing:-.01em}
+.primary{background:var(--lime);color:#103736;border:0;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer}
+.primary:hover{filter:brightness(.96)}
+.secondary{background:var(--ink);color:var(--bg);border:0;border-radius:8px;padding:10px 16px;font-weight:600;cursor:pointer}
+.soft{background:var(--field);color:var(--ink);border:0;border-radius:8px;padding:10px 16px;font-weight:600;cursor:pointer;box-shadow:0 1px 2px rgba(16,55,54,.08)}
+.soft:hover{background:var(--soft)}
+.primary,.soft,.ghost{display:inline-flex;align-items:center;gap:8px}
+.ic{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ghost .ic{width:15px;height:15px}
+.ic-brand{fill:currentColor;stroke:none;width:auto;height:16px}
+.copyrow{display:flex;gap:10px;flex-wrap:wrap}
+.sigmeasure,.sigmeasure *{box-sizing:content-box}
+.tabs{display:flex;gap:2px;padding:2px;background:var(--soft);border-radius:9px;flex-wrap:wrap;align-self:flex-start;max-width:100%}
+.tabs button{border:0;background:none;padding:6px 12px;cursor:pointer;border-radius:7px;color:var(--muted);font-weight:500;font-size:13px}
+.tabs button[aria-selected="true"]{color:var(--ink);background:var(--field);font-weight:600;box-shadow:0 1px 2px rgba(16,55,54,.08)}
+.tabpanel ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;max-width:68ch}
+.tabpanel p{margin:0 0 10px;max-width:68ch}
+code,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;background:var(--field);border-radius:4px;padding:1px 5px}
+.note{font-size:12px;color:var(--muted);margin:0;max-width:72ch}
+details summary{cursor:pointer;font-weight:600;font-size:13px}
+textarea{width:100%;height:220px;border:1px solid transparent;border-radius:8px;background:var(--field);padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;line-height:1.4;white-space:pre;overflow:auto;resize:vertical;margin-top:10px}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:8px 14px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20;font-weight:600;font-size:13px;max-width:calc(100vw - 32px)}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <svg class="mark" viewBox="0 0 44 44" aria-hidden="true">
+      <circle cx="22" cy="22" r="21.25" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="22" cy="22" r="12.75" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <circle cx="9.8" cy="4.6" r="3.25" fill="var(--bg)" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+    <div>
+      <h1>Dormotech email signature</h1>
+      <p>Fill in your details and copy the signature into Outlook.</p>
+    </div>
+    <span class="chip">Outlook-ready</span>
+  </header>
+
+  <div class="grid">
+    <form class="panel" id="form" autocomplete="on" onsubmit="return false">
+      <fieldset>
+        <legend>You</legend>
+        <div class="two">
+          <div class="field"><label for="first">First name</label><input type="text" id="first" autocomplete="given-name"></div>
+          <div class="field"><label for="last">Last name</label><input type="text" id="last" autocomplete="family-name"></div>
+        </div>
+        <div class="field"><label for="title">Job title</label><input type="text" id="title" autocomplete="organization-title"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Contacts</legend>
+        <div class="field"><label for="cell">Cell</label><input type="tel" id="cell" autocomplete="tel" placeholder="+1 111 222 3333"></div>
+        <div class="field"><label for="email">Email</label><input type="email" id="email" autocomplete="email" placeholder="name@dormotech.com"></div>
+        <div class="field"><label for="book">Booking link <small>optional — adds “Book a meeting →”</small></label><input type="url" id="book" placeholder="https://calendly.com/your-name"></div>
+      </fieldset>
+
+      <div class="row-btns">
+        <button type="button" class="ghost" id="example">Load example</button>
+        <button type="button" class="ghost" id="clear">Clear my details</button>
+      </div>
+      <p class="note">Your details stay in this browser only, so the form is filled next time you open the page.</p>
+    </form>
+
+    <div class="right">
+      <div class="paper-wrap">
+        <div class="paper-bar"><b>Preview</b><span id="who">New message</span><span class="grow"></span>
+          <label class="check" style="font-size:12px"><input type="checkbox" id="darkPrev"> Dark reading pane</label>
+        </div>
+        <div class="paper" id="paper">
+          <p class="greet">Hi Sarah,<br><br>Thanks for your time today. I’ve attached the DormoVision X technical overview.<br><br>Best regards,</p>
+          <div id="sig"></div>
+          <p class="dnote" id="darkNote" hidden>Approximation: Outlook lightens dark text automatically in dark mode. The logo image keeps its colors.</p>
+        </div>
+      </div>
+
+      <section class="actions" aria-labelledby="installH">
+        <h2 id="installH">Copy your signature</h2>
+        <div class="copyrow">
+          <button type="button" class="primary js-copy"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>Copy for Outlook</button>
+          <button type="button" class="soft" id="copyFigma"><svg class="ic ic-brand" viewBox="0 0 177 255" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M47.7206 95.4082C29.9906 95.4082 15.6176 109.776 15.6176 127.5C15.6176 145.224 29.9906 159.592 47.7206 159.592H80.6912V127.5V95.4082H47.7206ZM128.412 79.7959L129.279 79.7959C147.009 79.7959 161.382 65.4279 161.382 47.7041C161.382 29.9802 147.009 15.6122 129.279 15.6122H96.3088V79.7959L128.412 79.7959ZM155.448 87.602C168.429 79.0765 177 64.3908 177 47.7041C177 21.3578 155.635 0 129.279 0H96.3088H88.5H80.6912H47.7206C21.3652 0 0 21.3578 0 47.7041C0 64.3908 8.57068 79.0765 21.5515 87.602C8.57068 96.1276 0 110.813 0 127.5C0 144.187 8.57067 158.872 21.5515 167.398C8.57067 175.923 0 190.609 0 207.296C0 233.697 21.6358 255 47.9363 255C74.4764 255 96.3088 233.503 96.3088 206.862V175.204V167.398V162.796C104.785 170.505 116.05 175.204 128.412 175.204H129.279C155.635 175.204 177 153.846 177 127.5C177 110.813 168.429 96.1276 155.448 87.602ZM129.279 95.4082L128.412 95.4082C110.682 95.4082 96.3088 109.776 96.3088 127.5C96.3088 145.224 110.682 159.592 128.412 159.592H129.279C147.009 159.592 161.382 145.224 161.382 127.5C161.382 109.776 147.009 95.4082 129.279 95.4082ZM15.6176 207.296C15.6176 189.572 29.9906 175.204 47.7206 175.204H80.6912V206.862C80.6912 224.771 65.9608 239.388 47.9363 239.388C30.1515 239.388 15.6176 224.965 15.6176 207.296ZM80.6912 79.7959H47.7206C29.9906 79.7959 15.6176 65.4279 15.6176 47.7041C15.6176 29.9802 29.9906 15.6122 47.7206 15.6122H80.6912V79.7959Z"/></svg>Copy to Figma</button>
+        </div>
+        <p class="note">Figma: select a frame or the canvas and paste (<kbd>⌘</kbd>+<kbd>V</kbd> / <kbd>Ctrl</kbd>+<kbd>V</kbd>). It arrives as editable vectors with live text in Instrument Sans.</p>
+        <h2 style="margin-top:6px">Install in Outlook</h2>
+        <div class="tabs" role="tablist" id="tabs">
+          <button type="button" role="tab" id="t-new" aria-controls="p-new" aria-selected="true">New Outlook &amp; web</button>
+          <button type="button" role="tab" id="t-mac" aria-controls="p-mac" aria-selected="false">Outlook for Mac</button>
+          <button type="button" role="tab" id="t-classic" aria-controls="p-classic" aria-selected="false">Classic Outlook (Windows)</button>
+        </div>
+
+        <div class="tabpanel" role="tabpanel" id="p-new" aria-labelledby="t-new">
+          <ol>
+            <li>Open <b>Settings</b> (gear icon) → <b>Accounts</b> → <b>Signatures</b>.</li>
+            <li>Click <b>Copy for Outlook</b> above. Then click <b>+ New signature</b>, name it <code>Dormotech</code>, click in the editor and paste (<kbd>Ctrl</kbd>+<kbd>V</kbd> / <kbd>⌘</kbd>+<kbd>V</kbd>).</li>
+            <li>Under <b>Select default signatures</b>, pick it for new messages and for replies/forwards. Click <b>Save</b>.</li>
+          </ol>
+        </div>
+
+        <div class="tabpanel" role="tabpanel" id="p-mac" aria-labelledby="t-mac" hidden>
+          <ol>
+            <li>In Outlook, open <b>Outlook</b> menu → <b>Settings…</b> → <b>Signatures</b>.</li>
+            <li>Click <b>Copy for Outlook</b> above. Then click <b>+</b>, rename it <code>Dormotech</code>, delete the placeholder text and paste (<kbd>⌘</kbd>+<kbd>V</kbd>). Close the editor window to save.</li>
+            <li>Under <b>Choose default signature</b>, pick it for new messages and replies/forwards.</li>
+          </ol>
+        </div>
+
+        <div class="tabpanel" role="tabpanel" id="p-classic" aria-labelledby="t-classic" hidden>
+          <p>Classic Outlook often reformats pasted signatures. Installing the file keeps the layout exact.</p>
+          <p class="row-btns"><button type="button" class="primary" id="dl"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M4 19h16"/></svg>Download signature file</button></p>
+          <ol>
+            <li>Press <kbd>Win</kbd>+<kbd>R</kbd>, enter <code>%APPDATA%\Microsoft\Signatures</code> and press Enter. Move the downloaded <code>Dormotech.htm</code> into that folder.</li>
+            <li>Restart Outlook, then go to <b>File</b> → <b>Options</b> → <b>Mail</b> → <b>Signatures…</b> and set <b>Dormotech</b> as the default for new messages and replies.</li>
+          </ol>
+          <p class="note" id="dlNote" hidden>The download didn’t start. Copy the HTML below, paste it into Notepad and save it as <code>Dormotech.htm</code> in the folder from step 2.</p>
+        </div>
+
+        <details id="codeBox">
+          <summary>HTML code (for IT or signature tools)</summary>
+          <textarea id="code" readonly spellcheck="false" aria-label="Signature HTML"></textarea>
+          <p class="row-btns" style="margin-top:8px"><button type="button" class="ghost" id="copyCode"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5"/><path d="m16 7 5 5-5 5"/></svg>Copy HTML</button></p>
+        </details>
+        <p class="note">Outlook shows Arial where Instrument Sans isn’t installed. Some recipients see the logo only after they allow images.</p>
+      </section>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+var $ = function(id){ return document.getElementById(id); };
+var KEY = "dormotech-signature:v1";
+var FIELDS = ["first","last","title","cell","email","book"];
+var EXAMPLE = {first:"Kyle", last:"Hunter", title:"Chief Commercial Officer", cell:"+1 111 222 3333", email:"kyle.hunter@dormotech.com", book:"https://calendly.com/dormotech"};
+var WEBSITE = "dormotech.com";
+/* The logo lives next to this page; emails link to its absolute URL. */
+var LOGO_URL = new URL("logo.png", location.href).href, LOGO_DATA = "";
+try{ fetch("logo.png").then(function(r){ return r.blob(); }).then(function(b){ var fr = new FileReader(); fr.onload = function(){ LOGO_DATA = fr.result; }; fr.readAsDataURL(b); }).catch(function(){}); }catch(e){}
+var S = Object.assign({}, EXAMPLE);
+
+/* ---------- brand tokens for the email itself (fixed, not page-themed) ---------- */
+var LIGHT = {bg:"#ffffff", ink:"#103736", muted:"#4f6b69", div:"#bce1cf", sym:"#103736"};
+/* How Outlook dark mode treats a borderless signature: dark text is lightened, the white ground becomes the pane. */
+var DARK = {bg:"#1f1f1f", ink:"#e8eeec", muted:"#a7b5b2", div:"#4d5b58", sym:"#e8eeec"};
+var FONT = "'Instrument Sans',Arial,Helvetica,sans-serif";
+
+function esc(s){ return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function url(u){ u = String(u||"").trim(); if(!u) return ""; if(!/^https?:\/\//i.test(u)) u = "https://" + u; return u; }
+function bare(u){ return String(u||"").trim().replace(/^https?:\/\//i,"").replace(/^www\./i,"").replace(/\/$/,""); }
+function tel(p){ return "tel:" + String(p||"").replace(/[^\d+]/g,""); }
+function r2(n){ return Math.round(n*2)/2; }
+
+/* ---------- the symbol: outer ring, inner ring, bubble at 11 o'clock ---------- */
+function geom(Sz){
+  var ob = Math.max(1, r2(Sz*0.034)), ib = Math.max(1.5, r2(Sz*0.057));
+  var Di = Math.round(Sz*0.64/2)*2, d = Math.max(6, Math.round(Sz*0.18)), bb = ob;
+  var R = (Sz-ob)/2, a = 30*Math.PI/180;
+  var cx = Sz/2 - R*Math.sin(a), cy = Sz/2 - R*Math.cos(a);
+  return {S:Sz, ob:ob, ib:ib, Di:Di, d:d, bb:bb, cx:cx, cy:cy};
+}
+function symbolCSS(g, col, bg){
+  var pad = (g.S - 2*g.ob - g.Di)/2;
+  var bx = Math.max(0, Math.round(g.cx - g.d/2)), by = Math.max(0, Math.round(g.cy - g.d/2));
+  return '<div style="width:'+g.S+'px;height:'+g.S+'px;position:relative;box-sizing:content-box;">'+
+    '<div style="height:0;line-height:0;font-size:0;">'+
+      '<div style="position:relative;z-index:2;margin-left:'+bx+'px;top:'+by+'px;width:'+(g.d-2*g.bb)+'px;height:'+(g.d-2*g.bb)+'px;border:'+g.bb+'px solid '+col+';border-radius:50%;background-color:'+bg+';box-sizing:content-box;"></div>'+
+    '</div>'+
+    '<div style="width:'+g.Di+'px;height:'+g.Di+'px;padding:'+pad+'px;border:'+g.ob+'px solid '+col+';border-radius:50%;box-sizing:content-box;">'+
+      '<div style="width:'+(g.Di-2*g.ib)+'px;height:'+(g.Di-2*g.ib)+'px;border:'+g.ib+'px solid '+col+';border-radius:50%;box-sizing:content-box;"></div>'+
+    '</div>'+
+  '</div>';
+}
+function symbolVML(g, col, bg){
+  var k = 10, f = function(n){ return Math.round(n*k); };
+  function oval(cx, cy, r, w, fill){
+    return '<v:oval style="position:absolute;left:'+f(cx-r)+';top:'+f(cy-r)+';width:'+f(2*r)+';height:'+f(2*r)+'" strokecolor="'+col+'" strokeweight="'+w+'px" '+(fill ? 'filled="t" fillcolor="'+fill+'"' : 'filled="f"')+'></v:oval>';
+  }
+  var c = g.S/2;
+  return '<v:group style="width:'+g.S+'px;height:'+g.S+'px" coordsize="'+(g.S*k)+','+(g.S*k)+'" coordorigin="0,0">'+
+    oval(c, c, c - g.ob/2, g.ob) + oval(c, c, g.Di/2 - g.ib/2, g.ib) + oval(g.cx, g.cy, g.d/2 - g.bb/2, g.bb, bg) +
+  '</v:group>';
+}
+function symbol(g, T, forFile){
+  var css = symbolCSS(g, T.sym, T.bg);
+  if(!forFile) return css;
+  return '<!--[if mso]>' + symbolVML(g, T.sym, T.bg) + '<![endif]--><!--[if !mso]><!-->' + css + '<!--<![endif]-->';
+}
+
+/* ---------- signature markup: symbol + wordmark | divider | details. One fixed design. ---------- */
+function build(forFile, dark){
+  var T = dark ? DARK : LIGHT, g = geom(34);
+  var name = [S.first, S.last].map(function(s){ return String(s||"").trim(); }).filter(Boolean).join(" ") || "Your Name";
+  var base = 'font-family:'+FONT+';';
+  var line = function(html, extra){ return '<div style="'+base+'font-size:13px;line-height:18px;color:'+T.ink+';'+(extra||'')+'">'+html+'</div>'; };
+  var a = function(href, text){ return '<a href="'+esc(href)+'" style="color:'+T.ink+';text-decoration:none;">'+esc(text)+'</a>'; };
+
+  var text = '<div style="'+base+'font-size:18px;line-height:22px;font-weight:700;color:'+T.ink+';letter-spacing:-0.2px;">'+esc(name)+'</div>';
+  if(S.title) text += '<div style="'+base+'font-size:13px;line-height:18px;color:'+T.muted+';padding-top:2px;">'+esc(S.title)+'</div>';
+  var rows = [];
+  if(S.cell) rows.push(line(a(tel(S.cell), S.cell.trim())));
+  if(S.email) rows.push(line(a("mailto:"+S.email.trim(), S.email.trim())));
+  rows.push(line(a("https://"+WEBSITE, WEBSITE)));
+  text += '<div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>' + rows.join("");
+  var bookHref = url(S.book);
+  if(bookHref){
+    text += '<div style="height:12px;line-height:12px;font-size:0;">&nbsp;</div>'+
+      '<a href="'+esc(bookHref)+'" style="'+base+'font-size:13px;line-height:18px;font-weight:600;color:'+T.ink+';text-decoration:underline;">Book a meeting &rarr;</a>';
+  }
+
+  var lockup = '<a href="https://dormotech.com" style="text-decoration:none;border:0;">'+
+    '<img src="'+esc(LOGO_URL)+'" width="230" height="56" alt="Dormotech" style="display:block;width:230px;height:56px;max-width:230px;border:0;outline:none;text-decoration:none;">'+
+    '</a>';
+
+  return '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>'+
+    '<td valign="middle" width="230" style="width:230px;padding:0 12px 0 0;">'+lockup+'</td>'+
+    '<td width="1" bgcolor="'+T.div+'" style="width:1px;background-color:'+T.div+';font-size:0;line-height:0;">&nbsp;</td>'+
+    '<td valign="top" style="padding:2px 0 2px 20px;">'+text+'</td>'+
+    '</tr></table>';
+}
+function fileHTML(){
+  var name = [S.first, S.last].filter(Boolean).join(" ") || "Dormotech";
+  return '<!DOCTYPE html>\n<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">\n<head>\n<meta charset="utf-8">\n<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n<title>'+esc(name)+' – Dormotech signature</title>\n'+
+    '<!--[if mso]><style>v\\:* {behavior:url(#default#VML);} o\\:* {behavior:url(#default#VML);}</style><![endif]-->\n</head>\n<body style="margin:0;padding:0;">\n'+build(true)+'\n</body>\n</html>\n';
+}
+
+/* ---------- UI wiring ---------- */
+function paint(){
+  FIELDS.forEach(function(k){ var el = $(k); if(el.value !== (S[k] || "")) el.value = S[k] || ""; });
+  render();
+}
+function render(){
+  $("sig").innerHTML = build(false, $("darkPrev").checked);
+  $("darkNote").hidden = !$("darkPrev").checked;
+  $("code").value = fileHTML();
+  var n = [S.first, S.last].filter(Boolean).join(" ");
+  $("who").textContent = n ? "From: " + n : "New message";
+}
+var tSave;
+function save(){ clearTimeout(tSave); tSave = setTimeout(function(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }, 300); }
+FIELDS.forEach(function(k){ $(k).addEventListener("input", function(e){ S[k] = e.target.value; render(); save(); }); });
+$("darkPrev").addEventListener("change", function(e){ $("paper").classList.toggle("dark", e.target.checked); render(); });
+$("example").addEventListener("click", function(){ S = Object.assign({}, EXAMPLE); paint(); save(); toast("Example loaded"); });
+$("clear").addEventListener("click", function(){
+  FIELDS.forEach(function(k){ S[k] = ""; });
+  try{ localStorage.removeItem(KEY); }catch(e){} paint(); $("first").focus(); toast("Cleared");
+});
+
+/* tabs */
+var tabs = Array.prototype.slice.call(document.querySelectorAll('#tabs [role=tab]'));
+function selectTab(t){ tabs.forEach(function(x){ var on = x === t; x.setAttribute("aria-selected", String(on)); x.tabIndex = on ? 0 : -1; $(x.getAttribute("aria-controls")).hidden = !on; }); }
+tabs.forEach(function(t, i){
+  t.addEventListener("click", function(){ selectTab(t); });
+  t.addEventListener("keydown", function(e){ var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if(!d) return; var n = tabs[(i + d + tabs.length) % tabs.length]; selectTab(n); n.focus(); });
+});
+selectTab(tabs[/Win/i.test(navigator.platform || navigator.userAgent) ? 0 : (/Mac/i.test(navigator.platform || "") ? 1 : 0)]);
+
+/* copy as rich content */
+var tT; function toast(m){ var t = $("toast"); t.textContent = m; t.classList.add("show"); clearTimeout(tT); tT = setTimeout(function(){ t.classList.remove("show"); }, 2400); }
+function plain(){
+  var n = [S.first, S.last].filter(Boolean).join(" ");
+  return [n, S.title, S.cell, S.email, WEBSITE, S.book && ("Book a meeting: " + url(S.book))].filter(Boolean).join("\n");
+}
+function selectCopy(){
+  var node = $("sig"), r = document.createRange(), sel = window.getSelection();
+  sel.removeAllRanges(); r.selectNodeContents(node); sel.addRange(r);
+  var ok = false; try{ ok = document.execCommand("copy"); }catch(e){}
+  if(ok){ sel.removeAllRanges(); toast("Signature copied — paste it into Outlook"); }
+  else toast("Signature selected — press Ctrl+C / ⌘C");
+}
+function copyRich(){
+  var html = build(false);
+  try{
+    if(window.ClipboardItem && navigator.clipboard && navigator.clipboard.write){
+      var item = new ClipboardItem({"text/html": new Blob([html], {type:"text/html"}), "text/plain": new Blob([plain()], {type:"text/plain"})});
+      navigator.clipboard.write([item]).then(function(){ toast("Signature copied — paste it into Outlook"); }, selectCopy);
+      return;
+    }
+  }catch(e){}
+  selectCopy();
+}
+document.querySelectorAll(".js-copy").forEach(function(b){ b.addEventListener("click", copyRich); });
+/* Figma: paste SVG markup and Figma builds vectors + text layers. Measured from a light render of the signature. */
+function toSVG(){
+  var host = document.createElement("div");
+  host.className = "sigmeasure";
+  host.style.cssText = "position:absolute;left:-10000px;top:0;background:#fff;";
+  host.innerHTML = build(false, false);
+  document.body.appendChild(host);
+  var root = host.firstElementChild, R = root.getBoundingClientRect();
+  var W = Math.ceil(R.width), H = Math.ceil(R.height), base = [], top = [], texts = [];
+  var cv = document.createElement("canvas").getContext("2d");
+  function n(v){ return Math.round(v*100)/100; }
+  function clear(c){ return !c || c === "transparent" || /rgba\([^)]*,\s*0\)$/.test(c); }
+  function radius(cs, w, h){ var v = cs.borderTopLeftRadius || "0"; return v.indexOf("%") > -1 ? Math.min(w, h)*parseFloat(v)/100 : (parseFloat(v) || 0); }
+  var els = [root].concat(Array.prototype.slice.call(root.querySelectorAll("*")));
+  els.forEach(function(el){
+    var cs = getComputedStyle(el), r = el.getBoundingClientRect();
+    if(r.width <= 0 || r.height <= 0) return;
+    var x = r.left - R.left, y = r.top - R.top, w = r.width, h = r.height, rx = Math.min(radius(cs, w, h), w/2, h/2);
+    var out = (cs.position !== "static" && parseInt(cs.zIndex, 10) > 0) ? top : base, round = rx > 0 && Math.abs(w - h) < 1 && rx >= w/2 - 0.5;
+    if(el.tagName === "IMG"){
+      base.push('<image x="'+n(x)+'" y="'+n(y)+'" width="'+n(w)+'" height="'+n(h)+'" href="'+(LOGO_DATA || el.src)+'" preserveAspectRatio="xMidYMid meet"/>');
+      return;
+    }
+    if(!clear(cs.backgroundColor) && el.tagName !== "A"){
+      out.push(round ? '<ellipse cx="'+n(x+w/2)+'" cy="'+n(y+h/2)+'" rx="'+n(w/2)+'" ry="'+n(h/2)+'" fill="'+cs.backgroundColor+'"/>'
+                     : '<rect x="'+n(x)+'" y="'+n(y)+'" width="'+n(w)+'" height="'+n(h)+'" rx="'+n(rx)+'" fill="'+cs.backgroundColor+'"/>');
+    }
+    var bt = parseFloat(cs.borderTopWidth) || 0, bl = parseFloat(cs.borderLeftWidth) || 0;
+    if(bt > 0 && bl > 0 && cs.borderTopStyle !== "none"){
+      var bw = bt, c = cs.borderTopColor;
+      out.push(round ? '<ellipse cx="'+n(x+w/2)+'" cy="'+n(y+h/2)+'" rx="'+n(w/2-bw/2)+'" ry="'+n(h/2-bw/2)+'" fill="none" stroke="'+c+'" stroke-width="'+bw+'"/>'
+                     : '<rect x="'+n(x+bw/2)+'" y="'+n(y+bw/2)+'" width="'+n(w-bw)+'" height="'+n(h-bw)+'" rx="'+n(Math.max(0, rx-bw/2))+'" fill="none" stroke="'+c+'" stroke-width="'+bw+'"/>');
+    } else if(bt > 0 && cs.borderTopStyle !== "none"){
+      out.push('<rect x="'+n(x)+'" y="'+n(y)+'" width="'+n(w)+'" height="'+n(bt)+'" fill="'+cs.borderTopColor+'"/>');
+    }
+  });
+  var tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), node, range = document.createRange();
+  while((node = tw.nextNode())){
+    var t = node.textContent.replace(/\s+/g, " ").trim(); if(!t) continue;
+    var p = node.parentElement, cs = getComputedStyle(p);
+    range.selectNodeContents(node); var rr = range.getClientRects(); if(!rr.length) continue;
+    var b = rr[0], fs = parseFloat(cs.fontSize), fw = cs.fontWeight;
+    cv.font = fw + " " + fs + "px " + cs.fontFamily;
+    var m = cv.measureText(t), asc = m.fontBoundingBoxAscent || fs*0.8;
+    var tx = b.left - R.left, ty = b.top - R.top + asc, ls = parseFloat(cs.letterSpacing) || 0;
+    texts.push('<text x="'+n(tx)+'" y="'+n(ty)+'" font-family="Instrument Sans" font-size="'+fs+'" font-weight="'+fw+'"'+(ls ? ' letter-spacing="'+ls+'"' : '')+' fill="'+cs.color+'">'+esc(t)+'</text>');
+    var a = p.closest("a"); if(a && /underline/.test(getComputedStyle(a).textDecorationLine)){
+      texts.push('<rect x="'+n(tx)+'" y="'+n(ty+2)+'" width="'+n(b.width)+'" height="1" fill="'+cs.color+'"/>');
+    }
+  }
+  host.remove();
+  var name = [S.first, S.last].filter(Boolean).join(" ") || "Signature";
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" fill="none"><g id="'+esc("Dormotech signature – " + name)+'">'+base.join("")+top.join("")+texts.join("")+'</g></svg>';
+}
+$("copyFigma").addEventListener("click", function(){
+  var svg = toSVG(), fb = function(){ $("codeBox").open = true; var ta = $("code"); ta.value = svg; ta.focus(); ta.select(); toast("SVG selected — press Ctrl+C / ⌘C, then paste in Figma"); setTimeout(render, 15000); };
+  try{ navigator.clipboard.writeText(svg).then(function(){ toast("Copied — paste it into Figma"); }, fb); }catch(e){ fb(); }
+});
+$("copyCode").addEventListener("click", function(){
+  var ta = $("code"), fb = function(){ ta.focus(); ta.select(); toast("Code selected — press Ctrl+C / ⌘C"); };
+  try{ navigator.clipboard.writeText(ta.value).then(function(){ toast("HTML copied"); }, fb); }catch(e){ fb(); }
+});
+
+/* download for classic Outlook */
+$("dl").addEventListener("click", function(){
+  try{
+    var blob = new Blob([fileHTML()], {type:"text/html"}), a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = "Dormotech.htm";
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    toast("Downloaded Dormotech.htm");
+  }catch(e){ $("dlNote").hidden = false; $("codeBox").open = true; }
+});
+
+/* restore */
+try{ var saved = JSON.parse(localStorage.getItem(KEY) || "null"); if(saved && typeof saved === "object") S = Object.assign({}, EXAMPLE, saved); }catch(e){}
+paint();
+})();
+</script>
+
+</body>
+</html>
