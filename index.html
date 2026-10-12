@@ -297,7 +297,8 @@ function build(forFile, dark){
 
   var lockup = '<a href="https://dormotech.com" style="text-decoration:none;border:0;">'+
     '<img src="'+esc(LOGO_URL)+'" width="201" height="40" alt="Dormotech" style="display:block;width:201px;height:40px;max-width:201px;border:0;outline:none;text-decoration:none;">'+
-    '</a>';
+    '</a>'+
+    '<div style="'+base+'font-size:12px;line-height:16px;color:'+T.muted+';padding-top:10px;white-space:nowrap;">Every sleep study, one platform.</div>';
 
   return '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>'+
     '<td valign="middle" width="201" style="width:201px;padding:0 28px 0 0;">'+lockup+'</td>'+
@@ -346,7 +347,7 @@ selectTab(tabs[/Win/i.test(navigator.platform || navigator.userAgent) ? 0 : (/Ma
 var tT; function toast(m){ var t = $("toast"); t.textContent = m; t.classList.add("show"); clearTimeout(tT); tT = setTimeout(function(){ t.classList.remove("show"); }, 2400); }
 function plain(){
   var n = [S.first, S.last].filter(Boolean).join(" ");
-  return [n, S.title, S.cell, S.email, WEBSITE, S.book && ("Book a meeting: " + url(S.book))].filter(Boolean).join("\n");
+  return [n, S.title, S.cell, S.email, WEBSITE, "Every sleep study, one platform.", S.book && ("Book a meeting: " + url(S.book))].filter(Boolean).join("\n");
 }
 function selectCopy(){
   var node = $("sig"), r = document.createRange(), sel = window.getSelection();
