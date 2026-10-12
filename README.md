@@ -6,7 +6,7 @@ A one-page generator for the company email signature in Outlook. Anyone on the t
 
 ## What's here
 - `index.html` — the generator (no build step, no dependencies).
-- `logo.png` — the Dormotech lockup (690 × 168, shown at 230 × 56). Signatures link to this file, so keep the name and location stable.
+- `logo.png` — the Dormotech lockup in teal #009370 (603 × 120, shown at 201 × 40). Mid-tone, so it reads on light and dark backgrounds. Signatures link to this file, so keep the name and location stable.
 
 ## How the signature works
 - Logo image on the left, a thin mint divider, then name, title, cell, email, dormotech.com and an optional "Book a meeting →" link.

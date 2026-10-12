@@ -157,7 +157,7 @@ textarea{width:100%;height:220px;border:1px solid transparent;border-radius:8px;
         <div class="paper" id="paper">
           <p class="greet">Hi Sarah,<br><br>Thanks for your time today. I’ve attached the DormoVision X technical overview.<br><br>Best regards,</p>
           <div id="sig"></div>
-          <p class="dnote" id="darkNote" hidden>Approximation: Outlook lightens dark text automatically in dark mode. The logo image keeps its colors.</p>
+          <p class="dnote" id="darkNote" hidden>Approximation: Outlook lightens dark text automatically in dark mode. The logo is a mid-tone teal so it reads on both.</p>
         </div>
       </div>
 
@@ -296,11 +296,11 @@ function build(forFile, dark){
   }
 
   var lockup = '<a href="https://dormotech.com" style="text-decoration:none;border:0;">'+
-    '<img src="'+esc(LOGO_URL)+'" width="230" height="56" alt="Dormotech" style="display:block;width:230px;height:56px;max-width:230px;border:0;outline:none;text-decoration:none;">'+
+    '<img src="'+esc(LOGO_URL)+'" width="201" height="40" alt="Dormotech" style="display:block;width:201px;height:40px;max-width:201px;border:0;outline:none;text-decoration:none;">'+
     '</a>';
 
   return '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>'+
-    '<td valign="middle" width="230" style="width:230px;padding:0 12px 0 0;">'+lockup+'</td>'+
+    '<td valign="middle" width="201" style="width:201px;padding:0 28px 0 0;">'+lockup+'</td>'+
     '<td width="1" bgcolor="'+T.div+'" style="width:1px;background-color:'+T.div+';font-size:0;line-height:0;">&nbsp;</td>'+
     '<td valign="top" style="padding:2px 0 2px 20px;">'+text+'</td>'+
     '</tr></table>';
